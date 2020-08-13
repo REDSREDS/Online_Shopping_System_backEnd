@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: onlineStore
-    password: HUANhuan_123
+    password: *********
     url: jdbc:mysql://192.168.1.36/onlineStore?characterEncoding=utf-8&useSSL=false
   jpa:
     hibernate:
@@ -16,7 +16,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: maxOnline607
-    password: getMeOffer716
+    password: ************
     properties:
       mail:
         smtp:
