@@ -1,7 +1,9 @@
 package com.maxChen.onlineStore.exception;
 
 import com.maxChen.onlineStore.enums.ResultEnum;
+import lombok.Data;
 
+@Data
 public class SellException extends RuntimeException {
     private Integer code;
 

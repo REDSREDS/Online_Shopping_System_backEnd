@@ -18,13 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/buyer/product")
+@RequestMapping("/api/buyer/product")
 public class BuyerProductController {
     @Autowired
     private ProductService productService;
 
     @Autowired
     private CategoryService categoryService;
+
+    //we need to organize all products by category type,
     @GetMapping("/list")
     public ResultVO list() {
 //        1. look for all up products
@@ -39,7 +41,7 @@ public class BuyerProductController {
         }
 
         List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeIn(categoryTypeList);
-//        3. match data
+//        3. copy to VO classes as the output to frontend server.
         List<ProductVO> productVOList = new ArrayList<>();
 
         for(ProductCategory productCategory : productCategoryList) {
@@ -68,6 +70,5 @@ public class BuyerProductController {
     public String test() {
         return "hello, world";
     }
-
 
 }

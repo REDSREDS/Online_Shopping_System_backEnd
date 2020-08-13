@@ -1,5 +1,6 @@
 package com.maxChen.onlineStore.dataobjective;
 
+import com.maxChen.onlineStore.repository.ProductCategoryRepository;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,8 +11,8 @@ import java.util.Date;
 
 
 @Entity
-@DynamicUpdate
 @Data
+@DynamicUpdate
 public class ProductCategory {
     /**
      * category id

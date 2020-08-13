@@ -11,11 +11,13 @@ public interface OrderService {
     /** search one order */
     OrderDTO findOne(String orderId);
     /** search orderlist */
-    Page<OrderDTO> findList(String buyerOpenid, Pageable pageable);
+    Page<OrderDTO> findList(String buyerEmail, Pageable pageable);
+    /** list allOrder */
+    Page<OrderDTO> findAll(Pageable pageable);
     /** cancel order */
     OrderDTO cancel(OrderDTO orderDTO);
     /** finish order */
     OrderDTO finish(OrderDTO orderDTO);
     /** pay order */
-    OrderDTO paid(OrderDTO orderDTO);
+    OrderDTO pay(OrderDTO orderDTO);
 }

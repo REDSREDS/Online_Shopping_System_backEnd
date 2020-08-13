@@ -35,9 +35,7 @@ public class OrderServiceImplTest {
     public void create() throws Exception {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerName("max");
-        orderDTO.setBuyerAddress("earth");
-        orderDTO.setBuyerPhone("10104233432");
-        orderDTO.setBuyerOpenid(BUYER_OPENID);
+        orderDTO.setBuyerEmail("10104233432");
 
         List<OrderDetail> orderDetailList = new ArrayList<>();
 
@@ -64,6 +62,12 @@ public class OrderServiceImplTest {
     @Test
     public void findList() {
         Page<OrderDTO> orderDTOPage = orderService.findList(BUYER_OPENID, PageRequest.of(0, 2));
+        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
+    }
+
+    @Test
+    public void findAll() {
+        Page<OrderDTO> orderDTOPage = orderService.findAll(PageRequest.of(0, 2));
         Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
     }
 

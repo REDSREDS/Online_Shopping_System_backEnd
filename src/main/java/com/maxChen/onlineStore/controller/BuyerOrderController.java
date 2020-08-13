@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/buyer/order")
+@RequestMapping("/api/buyer/order")
 @Slf4j
 public class BuyerOrderController {
 
@@ -34,15 +34,13 @@ public class BuyerOrderController {
     @Autowired
     private BuyerService buyerService;
 
+
+
     //create order
     @PostMapping("/create")
-    public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
-                                                BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            log.error("orderform is not correct, orderForm = {}", orderForm);
-            throw new SellException(ResultEnum.PARAM_ERROR.getCode(),
-                    bindingResult.getFieldError().getDefaultMessage());
-        }
+    @ResponseBody
+    public ResultVO<Map<String, String>> create(@RequestBody OrderForm orderForm) {
+
         OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
         if(CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("cart cannot be empty");
@@ -60,16 +58,16 @@ public class BuyerOrderController {
 
     //order list
     @GetMapping("/list")
-    public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid,
+    public ResultVO<List<OrderDTO>> list(@RequestParam("email") String email,
                                          @RequestParam(value = "page", defaultValue = "0") Integer page,
                                          @RequestParam(value = "size", defaultValue = "10") Integer size) {
 
-        if(StringUtils.isEmpty(openid)) {
-            log.error("openid is empty");
+        if(StringUtils.isEmpty(email)) {
+            log.error("email is empty");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
 
-        Page<OrderDTO> orderDTOPage = orderService.findList(openid, PageRequest.of(page, size));
+        Page<OrderDTO> orderDTOPage = orderService.findList(email, PageRequest.of(page, size));
 
         return ResultVOUtil.success(orderDTOPage.getContent());
 
@@ -77,20 +75,19 @@ public class BuyerOrderController {
 
 
     //order detail
-
     @GetMapping("/detail")
-    public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
+    public ResultVO<OrderDTO> detail(@RequestParam("email") String email,
                                      @RequestParam("orderId") String orderId) {
-        // safety issue: need openid param for safety issue
-        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
+        // safety issue: need email param for safety issue
+        OrderDTO orderDTO = buyerService.findOrderOne(email, orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
     //cancel order
     @PostMapping("/cancel")
-    public ResultVO cancel(@RequestParam("openid") String openid,
+    public ResultVO cancel(@RequestParam("email") String email,
                            @RequestParam("orderId") String orderId) {
-        buyerService.cancelOrder(openid, orderId);
+        buyerService.cancelOrder(email, orderId);
         return ResultVOUtil.success();
     }
 }

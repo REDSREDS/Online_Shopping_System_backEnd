@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Order list</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(1)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <table class="ui celled padded table">
+            <thead>
+            <tr><th class="single line">orderId</th>
+                <th>buyerName</th>
+                <th>buyerEmail</th>
+                <th>orderAmount</th>
+                <th>orderStatus</th>
+                <th>payStatus</th>
+                <th>createTime</th>
+                <th>updateTime</th>
+                <th colspan="2">operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orderDTOPage.getContent()}">
+                <td class="single line" th:text="${order.orderId}"></td>
+                <td th:text="${order.buyerName}"></td>
+                <td th:text="${order.buyerEmail}"></td>
+                <td th:text="${order.orderAmount}"></td>
+                <td th:text="${order.getOrderStatusMsg()}"></td>
+                <td th:text="${order.getPayStatusMsg()}"></td>
+                <td th:text="${order.createTime}"></td>
+                <td th:text="${order.updateTime}"></td>
+                <td><a href="/" th:href="@{/seller/order/detail?orderId={orderId} (orderId = ${order.orderId})}">detail</a></td>
+                <td th:if="${order.orderStatus == 0}"><a href="/" th:href="@{/seller/order/cancel?orderId={orderId} (orderId = ${order.orderId})}">cancel</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui pagination menu" th:unless="${orderDTOPage.getTotalPages() == 0}">
+            <a th:unless="${orderDTOPage.getNumber() == 0}" th:href="@{/seller/order/list/?page={page} (page=${orderDTOPage.getNumber()})}" class="item"> < </a>
+            <a class="item" th:each="num : ${#numbers.sequence(1, orderDTOPage.getTotalPages())}" th:href="@{/seller/order/list/?page={page} (page=${num})}">
+                <span th:text="${num}"></span>
+            </a>
+            <a th:unless="${orderDTOPage.getNumber() == orderDTOPage.getTotalPages() - 1}" th:href="@{/seller/order/list/?page={page} (page=${orderDTOPage.getNumber()} + 2)}" class="item"> > </a>
+        </div>
+    </div>
+
+    <div class="ui basic modal">
+        <div class="ui header">
+            New Order Received
+        </div>
+        <div class="content">
+            <p>You have received a new order</p>
+        </div>
+        <div class="actions">
+            <button onclick="location.reload()" class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+        var websocket = null;
+        if('WebSocket' in window) {
+            websocket = new WebSocket('ws://localhost:8080/websocket');
+        } else {
+            alert('does not support websocket');
+        }
+
+        websocket.onopen = function(event) {
+            console.log('connection open');
+        }
+        websocket.onclose = function(event) {
+            console.log('connection close');
+        }
+        websocket.onmessage = function(event) {
+            console.log('message received');
+            $('.ui.basic.modal')
+                .modal('show')
+            ;
+        }
+        websocket.onerror = function() {
+            alert('error');
+        }
+        window.onbeforeunload = function() {
+            websocket.close();
+        }
+
+    </script>
+
+
+</body>
+
+
+</html>

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -22,23 +23,27 @@ public class OrderMasterRepositoryTest {
     @Autowired
     private OrderMasterRepository repository;
 
-    private final String OPENID = "12321";
+    private final String email = "5512221596";
 
     @Test
     public void saveTest() {
         OrderMaster orderMaster = new OrderMaster();
-        orderMaster.setOrderId("51513151");
-        orderMaster.setBuyerAddress("earth");
+        orderMaster.setOrderId("order2");
         orderMaster.setBuyerName("max");
-        orderMaster.setBuyerOpenid("12321");
-        orderMaster.setBuyerPhone("551222222");
-        orderMaster.setOrderAmount(new BigDecimal(8.8));
+        orderMaster.setBuyerEmail(email);
+        orderMaster.setOrderAmount(new BigDecimal(250));
         repository.save(orderMaster);
         Assert.assertNotNull(orderMaster);
     }
     @Test
-    public void findByBuyerOpenid() {
-        Page<OrderMaster> result = repository.findByBuyerOpenid(OPENID, PageRequest.of(1, 1));
+    public void findByBuyerEmail() {
+        Page<OrderMaster> result = repository.findByBuyerEmail(email, PageRequest.of(1, 1));
         Assert.assertNotEquals(0, result.getTotalElements());
+    }
+
+    @Test
+    public void findByOrderId() {
+        Optional<OrderMaster> result = repository.findById("order4");
+        System.out.println(result);
     }
 }

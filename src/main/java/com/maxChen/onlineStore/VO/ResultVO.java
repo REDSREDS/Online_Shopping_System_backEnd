@@ -3,7 +3,6 @@ package com.maxChen.onlineStore.VO;
 //http outer object
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 @Data

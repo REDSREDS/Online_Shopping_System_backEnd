@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Order list</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(1)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <table class="ui celled padded table">
+            <thead>
+            <tr><th class="single line">orderId</th>
+                <th>orderAmount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="single line" th:text="${orderDTO.orderId}"></td>
+                <td th:text="${orderDTO.orderAmount}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="ui celled padded table">
+            <thead>
+            <tr><th class="single line">productId</th>
+                <th>productName</th>
+                <th>productPrice</th>
+                <th>productQuantity</th>
+                <th>totalPrice</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderDetail : ${orderDTO.getOrderDetailList()}">
+                <td class="single line" th:text="${orderDetail.productId}"></td>
+                <td th:text="${orderDetail.productName}"></td>
+                <td th:text="${orderDetail.productPrice}"></td>
+                <td th:text="${orderDetail.productQuantity}"></td>
+                <td th:text="${orderDetail.productPrice * orderDetail.productQuantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="ui secondary button" th:href="@{/seller/order/finish?orderId={orderId} (orderId = ${orderDTO.orderId})}">
+            Finish
+        </a>
+        <a class="ui button" th:href="@{/seller/order/cancel?orderId={orderId} (orderId = ${orderDTO.orderId})}">
+            Cancel
+        </a>
+
+    </div>
+
+</body>
+</html>

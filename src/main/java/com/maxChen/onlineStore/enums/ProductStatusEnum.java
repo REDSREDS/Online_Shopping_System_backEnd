@@ -1,7 +1,4 @@
 package com.maxChen.onlineStore.enums;
-
-
-
 import lombok.Getter;
 
 @Getter

@@ -1,5 +1,6 @@
 package com.maxChen.onlineStore.repository;
 
+import com.maxChen.onlineStore.Service.ProductService;
 import com.maxChen.onlineStore.dataobjective.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 

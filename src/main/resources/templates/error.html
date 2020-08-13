@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>error</title>
+</head>
+<body>
+    <div class="ui container">
+        <div class="ui negative message">
+            <p th:text="${message}"></p>
+            <a th:href="@{${url} == null ? '/seller/order/list' : ${url}}">redirect after 3s</a>
+        </div>
+    </div>
+
+
+</body>
+
+<script th:inline="javascript">
+    if([[${url}]] == null) {
+        setTimeout('location.href="/seller/order/list"', 3000);
+    } else {
+        setTimeout('location.href=[[${url}]]', 3000);
+    }
+
+</script>
+
+</html>

@@ -17,14 +17,14 @@ public class BuyerServiceImpl implements BuyerService {
     private OrderService orderService;
 
     @Override
-    public OrderDTO findOrderOne(String openid, String orderId) {
+    public OrderDTO findOrderOne(String email, String orderId) {
 
-        return checkOrderOwner(openid, orderId);
+        return checkOrderOwner(email, orderId);
     }
 
     @Override
-    public OrderDTO cancelOrder(String openid, String orderId) {
-        OrderDTO orderDTO = checkOrderOwner(openid, orderId);
+    public OrderDTO cancelOrder(String email, String orderId) {
+        OrderDTO orderDTO = checkOrderOwner(email, orderId);
 
         if(orderDTO == null) {
             log.error("cannot find the order, orderId = {}", orderId);
@@ -35,14 +35,14 @@ public class BuyerServiceImpl implements BuyerService {
 
 
 
-    private OrderDTO checkOrderOwner(String openid, String orderId) {
+    private OrderDTO checkOrderOwner(String email, String orderId) {
         OrderDTO orderDTO = orderService.findOne(orderId);
 
         if(orderDTO == null) {
             return null;
         }
-        if(!orderDTO.getBuyerOpenid().equalsIgnoreCase(openid)) {
-            log.error("buyer id does not match. openid = {}, orderDTO = {}", openid, orderDTO);
+        if(!orderDTO.getBuyerEmail().equalsIgnoreCase(email)) {
+            log.error("buyer id does not match. email = {}, orderDTO = {}", email, orderDTO);
             throw new SellException(ResultEnum.ORDER_OWNER_ERROR);
         }
         return orderDTO;

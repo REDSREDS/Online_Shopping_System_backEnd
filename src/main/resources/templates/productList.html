@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Product list</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(2)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <a href="/seller/product/index" class="ui primary button">new</a>
+        <table class="ui celled padded table">
+            <thead>
+            <tr><th class="single line">productId</th>
+                <th>productName</th>
+                <th>productIcon</th>
+                <th>productPrice</th>
+                <th>productStock</th>
+                <th>productDescription</th>
+                <th>productStatus</th>
+                <th>createTime</th>
+                <th>updateTime</th>
+                <th colspan="2">operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productInfoPage.getContent()}">
+                <td class="single line" th:text="${product.productId}"></td>
+                <td th:text="${product.productName}"></td>
+                <td><img class="ui tiny image" src="/" th:src="@{${product.productIcon}}" alt=""></td>
+                <td th:text="${product.productPrice}"></td>
+                <td th:text="${product.productStock}"></td>
+                <td th:text="${product.productDescription}"></td>
+                <td th:text="${product.productStatus}"></td>
+                <td th:text="${product.createTime}"></td>
+                <td th:text="${product.updateTime}"></td>
+                <td><a href="/" th:href="@{/seller/product/index?productId={productId} (productId = ${product.productId})}">update</a></td>
+                <td>
+                    <a href="/" th:if="${product.productStatus == 0}" th:href="@{/seller/product/offShelf?productId={productId} (productId = ${product.productId})}">off</a>
+                    <a href="/" th:if="${product.productStatus == 1}" th:href="@{/seller/product/onShelf?productId={productId} (productId = ${product.productId})}">on</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ui pagination menu" th:unless="${productInfoPage.getTotalPages() == 0}">
+            <a th:unless="${productInfoPage.getNumber() == 0}" th:href="@{/seller/product/list/?page={page} (page=${productInfoPage.getNumber()})}" class="item"> < </a>
+            <a class="item" th:each="num : ${#numbers.sequence(1, productInfoPage.getTotalPages())}" th:href="@{/seller/product/list/?page={page} (page=${num})}">
+                <span th:text="${num}"></span>
+            </a>
+            <a th:unless="${productInfoPage.getNumber() == productInfoPage.getTotalPages() - 1}" th:href="@{/seller/product/list/?page={page} (page=${productInfoPage.getNumber()} + 2)}" class="item"> > </a>
+        </div>
+    </div>
+
+</body>
+</html>

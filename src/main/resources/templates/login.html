@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <title>Login</title>
+</head>
+<body>
+
+<!--nav-->
+<nav th:replace="_fragments :: menu(0)"></nav>
+
+<!--content-->
+    <div class="ui container" style="width:30em; margin:5em">
+            <form class="ui large form" method="post" action="/login" th:action="@{/seller/login}">
+                <div class="ui segments">
+                    <div class="ui top attached segment">
+                        <div class="ui fluid input">
+                            <input type="text" name="sellerName" placeholder="sellerName">
+                        </div>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui fluid input">
+                            <input type="password" name="password" placeholder="password">
+                        </div>
+                    </div>
+                    <div class="ui bottom attached segment">
+                        <button class="ui fluid teal button" type="submit">Log in</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="ui message">
+                New to us? <a href="#" th:href="@{/seller/signup}">Sign Up</a>
+            </div>
+    </div>
+
+</body>
+</html>

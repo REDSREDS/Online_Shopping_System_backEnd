@@ -23,24 +23,24 @@ public class ProductCategoryRepositoryTest {
 
 
     @Test
-    public void findOneTest() {
+    public void findOneTest() throws Exception{
         Optional<ProductCategory> productCategory = repository.findById(10);
         System.out.println(productCategory.get().toString());
     }
 
     @Test
-    public void saveTest() {
-        Optional<ProductCategory> productCategory = repository.findById(10);
-        productCategory.get().setCategoryName("category3");
-        ProductCategory result = repository.save(productCategory.get());
+    public void saveTest() throws Exception{
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryName("category3");
+        productCategory.setCategoryType(3);
+        ProductCategory result = repository.save(productCategory);
         Assert.assertNotNull(result);
     }
 
 
-
     @Test
-    public void findByCategoryTypeInTest() {
-        List<Integer> list = Arrays.asList(5, 10, 15);
+    public void findByCategoryTypeInTest() throws Exception{
+        List<Integer> list = Arrays.asList(1,2,3);
         List<ProductCategory> result = repository.findByCategoryTypeIn(list);
         System.out.println(result.size());
     }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Category list</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(3)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <a href="/seller/category/index" class="ui primary button">new</a>
+        <table class="ui celled padded table">
+            <thead>
+            <tr><th class="single line">categoryId</th>
+                <th>categoryName</th>
+                <th>categoryType</th>
+                <th>createTime</th>
+                <th>updateTime</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categoryList}">
+                <td class="single line" th:text="${category.categoryId}"></td>
+                <td th:text="${category.categoryName}"></td>
+                <td th:text="${category.categoryType}"></td>
+                <td th:text="${category.createTime}"></td>
+                <td th:text="${category.updateTime}"></td>
+                <td><a href="/" th:href="@{/seller/category/index?categoryId={categoryId} (categoryId = ${category.categoryId})}">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

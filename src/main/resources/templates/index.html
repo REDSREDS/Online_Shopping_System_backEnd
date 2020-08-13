@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(2)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <form action="#" method="post" th:object="${productInfo}"th:action="@{/seller/product/save}" class="ui form">
+            <input type="hidden" name="productId" th:value="*{productId}">
+            <div class="required field">
+                <label>name</label>
+                <input type="text" name="productName" placeholder="product name" th:value="*{productName}">
+            </div>
+
+            <div class="required field">
+                <label>price</label>
+                <input type="number" name="productPrice" placeholder="product price" th:value="*{productPrice}">
+            </div>
+
+            <div class="required field">
+                <label>stock</label>
+                <input type="number" name="productStock" placeholder="product stock" th:value="*{productStock}">
+            </div>
+
+            <div class="field">
+                <label>description</label>
+                <textarea name="productDescription" placeholder="product description" th:value="*{productDescription}"></textarea>
+            </div>
+
+            <div class="field">
+                <label>image</label>
+                <img style="width:300px; height:auto" src="" th:src="@{*{productIcon}}" alt=""/>
+                <input type="text" name="productIcon" placehole="url of product icon" th:value="*{productIcon}">
+            </div>
+
+            <div class="required field">
+                <div class="ui left labeled action input">
+                    <div class="ui compact basic label">category</div>
+                    <div class="ui fluid selection dropdown">
+                        <input type="hidden" name="categoryType" th:value="*{categoryType} != null ? *{categoryType}">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">category</div>
+                        <div class="menu">
+                            <div th:each="category: ${categoryList}" class="item" th:data-value="${category.categoryType}" th:text="${category.categoryName}">dropdown 1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="ui button" type="submit">Submit</button>
+        </form>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown').dropdown({
+        });
+    </script>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package com.maxChen.onlineStore.Service.impl;
 
 import com.maxChen.onlineStore.Service.OrderService;
 import com.maxChen.onlineStore.Service.ProductService;
+import com.maxChen.onlineStore.Service.WebSocket;
 import com.maxChen.onlineStore.converter.OrderMaster2OrderDTOConverter;
 import com.maxChen.onlineStore.dataobjective.OrderDetail;
 import com.maxChen.onlineStore.dataobjective.OrderMaster;
@@ -16,7 +17,6 @@ import com.maxChen.onlineStore.repository.OrderDetailRepository;
 import com.maxChen.onlineStore.repository.OrderMasterRepository;
 import com.maxChen.onlineStore.utils.keyUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private WebSocket websocket;
 
     @Override
     @Transactional
@@ -92,13 +95,18 @@ public class OrderServiceImpl implements OrderService {
 
         productService.decreaseStock(cartDTOList);
 
+        /**
+         * send websocket message
+         */
+        websocket.sendMessage("new order");
+
         return orderDTO;
     }
 
     @Override
     public OrderDTO findOne(String orderId) {
-        OrderMaster orderMaster = orderMasterRepository.findById(orderId).get();
-        if(orderMaster == null) {
+        Optional<OrderMaster> orderMaster = orderMasterRepository.findById(orderId);
+        if(!orderMaster.isPresent()) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);
@@ -108,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         OrderDTO orderDTO = new OrderDTO();
-        BeanUtils.copyProperties(orderMaster, orderDTO);
+        BeanUtils.copyProperties(orderMaster.get(), orderDTO);
         orderDTO.setOrderDetailList(orderDetailList);
 
         return orderDTO;
@@ -116,12 +124,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
-        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
+    public Page<OrderDTO> findList(String buyerEmail, Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerEmail(buyerEmail, pageable);
 
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
 
-        Page<OrderDTO> orderDTOPage = new PageImpl<OrderDTO>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+        Page<OrderDTO> orderDTOPage = new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+
+        return orderDTOPage;
+    }
+
+    @Override
+    public Page<OrderDTO> findAll(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+
+        Page<OrderDTO> orderDTOPage = new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
 
         return orderDTOPage;
     }
@@ -129,8 +148,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO cancel(OrderDTO orderDTO) {
         OrderMaster orderMaster = new OrderMaster();
-
-
 
         // check the status of the order
         if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
@@ -189,7 +206,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO paid(OrderDTO orderDTO) {
+    public OrderDTO pay(OrderDTO orderDTO) {
         return null;
     }
 }

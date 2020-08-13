@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OnlineStoreApplicationTests {
+public class OnlineStoreApplicationTests extends OnlineStoreApplication {
 
 	@Test
 	public void contextLoads() {

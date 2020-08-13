@@ -3,7 +3,9 @@ package com.maxChen.onlineStore.dataobjective;
 import com.maxChen.onlineStore.enums.OrderStatusEnum;
 import com.maxChen.onlineStore.enums.PayStatusEnum;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,19 +29,9 @@ public class OrderMaster {
     private String buyerName;
 
     /**
-     * buyer phone
+     * buyer email
      */
-    private String buyerPhone;
-
-    /**
-     * buyer address
-     */
-    private String buyerAddress;
-
-    /**
-     * Buyer openID
-     */
-    private String buyerOpenid;
+    private String buyerEmail;
 
     /**
      * Order amount
@@ -57,8 +49,12 @@ public class OrderMaster {
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
 
     /** create time */
+    @CreationTimestamp
     private Date createTime;
 
+    @UpdateTimestamp
     /** update time */
     private Date updateTime;
+
+
 }

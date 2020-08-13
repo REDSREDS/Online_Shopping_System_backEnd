@@ -1,5 +1,6 @@
 package com.maxChen.onlineStore.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxChen.onlineStore.dataobjective.OrderDetail;
@@ -9,11 +10,12 @@ import com.maxChen.onlineStore.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
     private String orderId;
 
@@ -23,19 +25,9 @@ public class OrderDTO {
     private String buyerName;
 
     /**
-     * buyer phone
+     * buyer email
      */
-    private String buyerPhone;
-
-    /**
-     * buyer address
-     */
-    private String buyerAddress;
-
-    /**
-     * Buyer openID
-     */
-    private String buyerOpenid;
+    private String buyerEmail;
 
     /**
      * Order amount
@@ -62,4 +54,26 @@ public class OrderDTO {
 
 
     List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public String getOrderStatusMsg() {
+        String msg = "";
+        for(OrderStatusEnum status : OrderStatusEnum.values()) {
+            if(status.getCode() == orderStatus) {
+                msg = status.getMsg();
+            }
+        }
+        return msg;
+    }
+
+    @JsonIgnore
+    public String getPayStatusMsg() {
+        String msg = "";
+        for(PayStatusEnum status : PayStatusEnum.values()) {
+            if(status.getCode() == payStatus) {
+                msg = status.getMsg();
+            }
+        }
+        return msg;
+    }
 }

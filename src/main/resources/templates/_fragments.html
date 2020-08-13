@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title th:replace="${title}">home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<!--nav-->
+<nav th:fragment="menu(n)">
+    <div class="ui container">
+        <div class="ui secondary stackable menu">
+            <h2 class="ui teal header item">admin</h2>
+            <a href="#" class="item" th:classappend="${n==1} ? 'active'" th:href="@{/seller/order/list}"> Order </a>
+            <a href="#" class="item" th:classappend="${n==2} ? 'active'" th:href="@{/seller/product/list}"> Product </a>
+            <a href="#" class="item" th:classappend="${n==3} ? 'active'" th:href="@{/seller/category/list}"> Category </a>
+
+            <div class="right menu">
+                <div class="item">
+                    <form action="#" method="post" th:action="@{/search}">
+                        <div class="ui icon input">
+                            <input name="keywords" type="text" placeholder="search...">
+                            <i class="search link icon"></i>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="item">
+                    <div th:if="${seller} == null">
+                        <a href="#" class="ui item" th:href="@{/seller/login}">Login</a>
+                        <a href="#" class="ui item" th:href="@{/seller/signup}">Signup</a>
+                    </div>
+                    <div th:unless="${seller} == null">
+                        <span th:text="${seller.sellerName}">max</span>
+                    </div>
+                    <a href="#" class="ui item" th:href="@{/seller/logout}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+</body>
+</html>

@@ -24,14 +24,12 @@ public class ProductInfoRepositoryTest {
     @Test
     public void saveTest() {
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductId("1232141");
-        productInfo.setProductName("mixian");
-        productInfo.setProductPrice(new BigDecimal(10.0));
-        productInfo.setProductStock(50);
-        productInfo.setProductDescription("very delicious");
-        productInfo.setProductIcon("http://mixian.com");
+        productInfo.setProductId("4");
+        productInfo.setProductName("product4");
+        productInfo.setProductPrice(new BigDecimal(40.0));
+        productInfo.setProductStock(40);
         productInfo.setProductStatus(0);
-        productInfo.setCategoryType(10);
+        productInfo.setCategoryType(2);
 
         ProductInfo result = repository.save(productInfo);
         Assert.assertNotNull(result);
@@ -39,7 +37,8 @@ public class ProductInfoRepositoryTest {
 
     @Test
     public void findByProductStatus() {
-        List<ProductInfo> result = repository.findByProductStatus(0);
+        List<ProductInfo> result = repository.findByProductStatus(1);
+        System.out.println(result);
         Assert.assertNotEquals(0, result.size());
     }
 }

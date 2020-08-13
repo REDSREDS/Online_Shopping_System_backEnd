@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.maxChen.onlineStore</OriginalElement>
+  <nodes>
+    <node x="461.0" y="495.0">com.maxChen.onlineStore.VO.ProductInfoVO</node>
+    <node x="164.0" y="689.0">com.maxChen.onlineStore.dto.OrderDTO</node>
+    <node x="187.0" y="592.0">com.maxChen.onlineStore.dataobjective.ProductInfo</node>
+    <node x="242.0" y="102.0">com.maxChen.onlineStore.Service.impl.ProductServiceImpl</node>
+    <node x="366.0" y="592.0">com.maxChen.onlineStore.dataobjective.OrderMaster</node>
+    <node x="0.0" y="398.0">com.maxChen.onlineStore.repository.ProductInfoRepository</node>
+    <node x="218.0" y="199.0">com.maxChen.onlineStore.repository.ProductCategoryRepository</node>
+    <node x="257.0" y="398.0">com.maxChen.onlineStore.repository.OrderMasterRepository</node>
+    <node x="257.5" y="0.0">com.maxChen.onlineStore.Service.ProductService</node>
+    <node x="476.0" y="102.0">com.maxChen.onlineStore.Service.impl.BuyerServiceImpl</node>
+    <node x="507.0" y="199.0">com.maxChen.onlineStore.controller.BuyerProductController</node>
+    <node x="320.0" y="689.0">com.maxChen.onlineStore.VO.ResultVO</node>
+    <node x="476.0" y="689.0">com.maxChen.onlineStore.dto.CartDTO</node>
+    <node x="545.0" y="592.0">com.maxChen.onlineStore.dataobjective.OrderDetail</node>
+    <node x="491.5" y="0.0">com.maxChen.onlineStore.Service.BuyerService</node>
+    <node x="514.0" y="398.0">com.maxChen.onlineStore.repository.OrderDetailRepository</node>
+    <node x="15.5" y="199.0">com.maxChen.onlineStore.Service.OrderService</node>
+    <node x="0.0" y="301.0">com.maxChen.onlineStore.Service.impl.OrderServiceImpl</node>
+    <node x="624.0" y="689.0">com.maxChen.onlineStore.utils.keyUtil</node>
+    <node x="0.0" y="102.0">com.maxChen.onlineStore.Service.impl.CategoryServiceImpl</node>
+    <node x="0.0" y="689.0">com.maxChen.onlineStore.VO.ProductVO</node>
+    <node x="0.0" y="592.0">com.maxChen.onlineStore.utils.ResultVOUtil</node>
+    <node x="0.0" y="495.0">com.maxChen.onlineStore.controller.BuyerOrderController</node>
+    <node x="250.0" y="495.0">com.maxChen.onlineStore.dataobjective.ProductCategory</node>
+    <node x="15.5" y="0.0">com.maxChen.onlineStore.Service.CategoryService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.maxChen.onlineStore.Service.impl.BuyerServiceImpl" target="com.maxChen.onlineStore.Service.BuyerService">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="com.maxChen.onlineStore.Service.impl.ProductServiceImpl" target="com.maxChen.onlineStore.Service.ProductService">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="com.maxChen.onlineStore.Service.impl.OrderServiceImpl" target="com.maxChen.onlineStore.Service.OrderService">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="com.maxChen.onlineStore.Service.impl.CategoryServiceImpl" target="com.maxChen.onlineStore.Service.CategoryService">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8199737187910644" x="363.5" y="370.5" />
+  <SelectedNodes>
+    <node>com.maxChen.onlineStore.VO.ProductInfoVO</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

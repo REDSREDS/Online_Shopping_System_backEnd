@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>categoryIndex</title>
+</head>
+<body>
+
+    <!--nav-->
+    <nav th:replace="_fragments :: menu(3)"></nav>
+
+<!--    content-->
+    <div class="ui container">
+        <form action="#" method="post" th:object="${productCategory}"th:action="@{/seller/category/save}" class="ui form">
+            <input type="hidden" name="categoryId" th:value="*{categoryId}">
+            <div class="required field">
+                <label>name</label>
+                <input type="text" name="categoryName" placeholder="category name" th:value="*{categoryName}">
+            </div>
+
+            <div class="required field">
+                <label>type</label>
+                <input type="number" name="categoryType" placeholder="category type" th:value="*{categoryType}">
+            </div>
+
+            <button class="ui button" type="submit">Submit</button>
+        </form>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown').dropdown({
+        });
+    </script>
+</body>
+
+</html>

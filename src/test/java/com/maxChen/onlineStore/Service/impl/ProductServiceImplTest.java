@@ -56,4 +56,18 @@ public class ProductServiceImplTest {
         ProductInfo result = productService.save(productInfo);
         Assert.assertNotNull(result);
     }
+
+    @Test
+    public void onShelf() {
+        ProductInfo productInfo = productService.onShelf("product1");
+        Assert.assertEquals(ProductStatusEnum.UP.getCode(), productInfo.getProductStatus());
+
+    }
+
+    @Test
+    public void offShelf() {
+        ProductInfo productInfo = productService.offShelf("product1");
+        Assert.assertEquals(ProductStatusEnum.DOWN.getCode(), productInfo.getProductStatus());
+
+    }
 }

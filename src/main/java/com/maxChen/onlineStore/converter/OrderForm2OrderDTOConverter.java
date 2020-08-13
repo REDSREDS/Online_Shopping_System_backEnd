@@ -22,11 +22,9 @@ public class OrderForm2OrderDTOConverter {
         OrderDTO orderDTO = new OrderDTO();
 
         orderDTO.setBuyerName(orderForm.getName());
-        orderDTO.setBuyerPhone(orderForm.getPhone());
-        orderDTO.setBuyerAddress(orderForm.getAddress());
-        orderDTO.setBuyerOpenid(orderForm.getOpenid());
+        orderDTO.setBuyerEmail(orderForm.getEmail());
 
-        List<OrderDetail> orderDetailList = new ArrayList<>();
+        List<OrderDetail> orderDetailList;
 
         try {
             orderDetailList = gson.fromJson(orderForm.getItems(),

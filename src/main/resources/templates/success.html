@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>success</title>
+</head>
+<body>
+    <div class="ui container">
+        <div class="ui positive message">
+            <p th:text="${message}"></p>
+            <a th:href="@{${url}}">return to list after 3s</a>
+        </div>
+    </div>
+
+
+</body>
+
+<script th:inline="javascript">
+    setTimeout('location.href=[[${url}]]', 3000);
+</script>
+
+</html>

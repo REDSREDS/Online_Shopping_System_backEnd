@@ -1,15 +1,31 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: wechat2
+    username: onlineStore
     password: HUANhuan_123
-    url: jdbc:mysql://192.168.1.31/sell?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.1.36/onlineStore?characterEncoding=utf-8&useSSL=false
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  jackson:
+    default-property-inclusion: non_null
+  thymeleaf:
+    mode: HTML
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: maxOnline607
+    password: getMeOffer716
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
-  servlet:
-    context-path: /onlineStore
+  port: 8080
+
+
+

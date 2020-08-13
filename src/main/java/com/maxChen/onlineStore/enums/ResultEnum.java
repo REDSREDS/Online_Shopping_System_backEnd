@@ -16,7 +16,11 @@ public enum ResultEnum {
     ORDER_DETAIL_EMPTY(16, "order detail is empty"),
     CART_EMPTY(18, "cart cannot be empty"),
     ORDER_OWNER_ERROR(19, "owner does not match"),
-    ;
+    PRODUCT_STATUS_ERROR(20, "product status is incorrect"),
+    SELLER_NOT_MATCH(21, "password or sellerName not correct"),
+    SELLER_ALREADY_EXIST(22, "seller already exist"),
+    BUYER_NOT_MATCH(23, "password or buyerName not correct"),
+    BUYER_ALREADY_EXIST(24, "this email has already registered");
 
 
     private Integer code;
